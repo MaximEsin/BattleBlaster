@@ -1,0 +1,40 @@
+# Visual Studio 2015+ cache/options directory
+.vs/
+
+# VS Code project files (regenerated per machine, contain absolute local paths
+# to the engine install - right click .uproject -> "Generate VS Code project files")
+.vscode/
+*.code-workspace
+
+# Compiled and intermediate files
+Binaries/
+Build/
+DerivedDataCache/
+Intermediate/
+Saved/
+Source/*/Generated/
+
+# Cache files for the Alternate Asset Path
+*_BuiltData.uasset
+
+# Additional non-source files
+*.VC.db
+*.opendb
+*.opensdf
+*.sdf
+*.sln
+*.suo
+*.xcodeproj
+*.xcworkspace
+
+# Precompiled Assets
+SourceArt/**/*.png
+SourceArt/**/*.tga
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Plugin/module specific caches
+Plugins/*/Binaries/
+Plugins/*/Intermediate/
