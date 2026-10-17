@@ -23,12 +23,12 @@ void ATank::BeginPlay()
 	{
 		if (ULocalPlayer* LocalPlayer = PlayerController->GetLocalPlayer())
 		{
-			if (UEnhancedInputLocalPlayerSubsystem * Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer))
+			if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer))
 			{
 				Subsystem->AddMappingContext(DefaultMappingContext, 0);
 			}
 		}
-		
+
 	}
 
 }
@@ -38,6 +38,16 @@ void ATank::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	APlayerController* PlayerController = Cast<APlayerController>(GetController());
+	if (PlayerController)
+	{
+		FHitResult HitResult;
+		PlayerController->GetHitResultUnderCursor(ECC_Visibility, false, HitResult);
+
+		RotateTurret(HitResult.ImpactPoint);
+
+		// DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 25.0f, 12, FColor::Red);
+	}
 }
 
 // Called to bind functionality to input
@@ -56,7 +66,7 @@ void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 void ATank::MoveInput(const FInputActionValue& Value)
 {
 	float InputValue = Value.Get<float>();
-	
+
 	FVector DeltaLocation = FVector::ZeroVector;
 	DeltaLocation.X = Speed * InputValue * UGameplayStatics::GetWorldDeltaSeconds(GetWorld());
 	AddActorLocalOffset(DeltaLocation, true);
