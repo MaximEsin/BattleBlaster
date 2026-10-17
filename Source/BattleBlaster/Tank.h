@@ -12,7 +12,7 @@
 #include "Tank.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class BATTLEBLASTER_API ATank : public ABasePawn
@@ -41,6 +41,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* TurnAction;
 
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* FireAction;
+
 	UPROPERTY(VisibleAnywhere)
 	USpringArmComponent* SpringArmComp;
 
@@ -56,5 +59,5 @@ public:
 	void MoveInput(const FInputActionValue& Value);
 
 	void TurnInput(const FInputActionValue& Value);
-	
+
 };

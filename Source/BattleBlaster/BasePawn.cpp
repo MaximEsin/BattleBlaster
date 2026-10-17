@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "BasePawn.h"
 
 // Sets default values
@@ -18,6 +17,8 @@ ABasePawn::ABasePawn()
 	TurretMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TurretMesh"));
 	TurretMesh->SetupAttachment(BaseMesh);
 
+	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("ProjectileSpawnPoint"));
+	ProjectileSpawnPoint->SetupAttachment(TurretMesh);
 }
 
 void ABasePawn::RotateTurret(FVector LookAtTarget)
@@ -28,5 +29,17 @@ void ABasePawn::RotateTurret(FVector LookAtTarget)
 	FRotator InterpolatedRotation = FMath::RInterpTo(TurretMesh->GetComponentRotation(), LookAtRotation, GetWorld()->GetDeltaSeconds(), 10.0f);
 
 	TurretMesh->SetWorldRotation(InterpolatedRotation);
+}
+
+void ABasePawn::Fire()
+{
+	FVector SpawnLocation = ProjectileSpawnPoint->GetComponentLocation();
+	FRotator SpawnRotation = ProjectileSpawnPoint->GetComponentRotation();
+
+	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, SpawnLocation, SpawnRotation);
+	if (Projectile)
+	{
+		Projectile->SetOwner(this);
+	}
 }
 
