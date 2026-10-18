@@ -26,6 +26,8 @@ public:
 	ATank* Tank;
 	int32 TowerCount;
 
+	bool IsVictory = false;
+
 	void ActorDied(AActor* DeadActor);
 
 	void OnGameOverTimerTimeout();
